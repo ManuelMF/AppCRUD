@@ -1,3 +1,0 @@
-Estupendo día para estudiar Python 
-Esta línea a sido incluida desde el exterior 
-studiar Python
