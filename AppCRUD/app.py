@@ -23,8 +23,11 @@ def crearUsuario():
 		miConexion=sqlite3.connect("Usuarios")
 		miCursor=miConexion.cursor()
 
-		miCursor.execute("INSERT INTO datosUsuarios VALUES(NULL,'"+nombre.get()+"','"+contra.get()+"','"+apellido.get()+"','"+direccion.get()+"','"+TextComentario.get("1.0", "end")+"')")
-		
+		#miCursor.execute("INSERT INTO datosUsuarios VALUES(NULL,'"+nombre.get()+"','"+contra.get()+"','"+apellido.get()+"','"+direccion.get()+"','"+TextComentario.get("1.0", "end")+"')")
+		#Forma menos engorrosa de hacerlo y mas segura
+		datos=nombre.get(),contra.get(),apellido.get(),direccion.get(),TextComentario.get("1.0", "end")
+		miCursor.execute("INSERT INTO datosUsuarios VALUES(NULL,?,?,?,?,?)",datos)
+
 		miConexion.commit()
 		messagebox.showinfo("Base de datos", "Registro insertado con exito")
 		borrar()
@@ -51,8 +54,11 @@ def updateUsuario():
 		miConexion=sqlite3.connect("Usuarios")
 		miCursor=miConexion.cursor()
 
-		miCursor.execute("update datosUsuarios set dat_nombre='"+nombre.get()+"',dat_password='"+contra.get()+"', dat_apellido='"+apellido.get()+"', dat_direccion='"+direccion.get()+"', dat_comentarios='"+TextComentario.get("1.0", "end")+"' where dat_coddad = '"+miId.get()+"'")
-	 
+		#miCursor.execute("update datosUsuarios set dat_nombre='"+nombre.get()+"',dat_password='"+contra.get()+"', dat_apellido='"+apellido.get()+"', dat_direccion='"+direccion.get()+"', dat_comentarios='"+TextComentario.get("1.0", "end")+"' where dat_coddad = '"+miId.get()+"'")
+	 	#Forma menos engorrosa de hacerlo y mas segura
+		datos=nombre.get(),contra.get(),apellido.get(),direccion.get(),TextComentario.get("1.0", "end"),miId.get()
+		miCursor.execute("update datosUsuarios set dat_nombre=?,dat_password=?, dat_apellido=?, dat_direccion=?, dat_comentarios=? where dat_coddad =?",(datos))
+
 		miConexion.commit()
 		messagebox.showinfo("Base de datos", "Registro actualizado con exito")
 		borrar()
